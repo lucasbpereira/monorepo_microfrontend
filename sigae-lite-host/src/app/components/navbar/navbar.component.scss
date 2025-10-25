@@ -1,0 +1,28 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100dvw;
+    height: 49px;
+    max-height: 49px;
+    background-color: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    padding: .25rem 1rem;
+
+    h1 {
+        font-size: 14px;
+    }
+
+    ul {
+        list-style: none;
+
+        li {
+            font-size: 14px;
+
+            button {
+                background-color: transparent;
+                border: 0;
+            }
+        }
+    }
+}
