@@ -51,12 +51,20 @@ Thumbs.db
 # Ignorar builds e dependências de todos os subprojetos Angular
 sigae-lite-action-plan/dist/
 sigae-lite-action-plan/node_modules/
+sigae-lite-action-plan/src/environments/environment.development.ts
+sigae-lite-action-plan/src/environments/environment.ts
 sigae-lite-calendar/dist/
 sigae-lite-calendar/node_modules/
+sigae-lite-calendar/src/environments/environment.development.ts
+sigae-lite-calendar/src/environments/environment.ts
 sigae-lite-host/dist/
 sigae-lite-host/node_modules/
+sigae-lite-host/src/environments/environment.development.ts
+sigae-lite-host/src/environments/environment.ts
 sigae-lite-people/dist/
 sigae-lite-people/node_modules/
+sigae-lite-people/src/environments/environment.development.ts
+sigae-lite-people/src/environments/environment.ts
 
 # Ignorar arquivos de lock locais dos subprojetos
 **/package-lock.json
