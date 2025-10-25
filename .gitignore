@@ -1,0 +1,81 @@
+# ==========================
+# GERAL
+# ==========================
+
+# Compiled output
+**/dist/
+**/tmp/
+**/out-tsc/
+**/bazel-out/
+
+# Node
+**/node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+**/.vscode/*
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
+!**/.vscode/extensions.json
+**/.history/*
+
+# Angular cache and build artifacts
+**/.angular/cache/
+**/.sass-cache/
+**/connect.lock
+**/coverage/
+**/libpeerconnection.log
+**/testem.log
+**/typings/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# ==========================
+# MONOREPO SPECÍFICO
+# ==========================
+
+# Ignorar builds e dependências de todos os subprojetos Angular
+sigae-lite-action-plan/dist/
+sigae-lite-action-plan/node_modules/
+sigae-lite-calendar/dist/
+sigae-lite-calendar/node_modules/
+sigae-lite-host/dist/
+sigae-lite-host/node_modules/
+sigae-lite-people/dist/
+sigae-lite-people/node_modules/
+
+# Ignorar arquivos de lock locais dos subprojetos
+**/package-lock.json
+
+# Caso queira ignorar as configurações locais do VSCode em cada projeto
+sigae-lite-action-plan/.vscode/
+sigae-lite-calendar/.vscode/
+sigae-lite-host/.vscode/
+sigae-lite-people/.vscode/
+
+# ==========================
+# OPCIONAL
+# ==========================
+
+# Logs gerais
+*.log
+
+# Arquivos temporários do sistema operacional
+*.tmp
+*.swp
+*.bak
+*.old
