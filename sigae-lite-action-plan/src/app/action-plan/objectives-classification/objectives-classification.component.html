@@ -1,0 +1,255 @@
+    <form [formGroup]="classificationForm">
+      <div formArrayName="objectives">
+        <div *ngFor="let objective of objectives.controls; let i = index" [formGroupName]="i">
+          <p-fieldset [style]="{'width': 'auto', 'margin-bottom': '1rem'}">
+            <ng-template #header>
+              <div class="flex items-center gap-2 px-2">
+                <span class="font-bold">{{ getObjectiveDescription(i) }}</span>
+              </div>
+            </ng-template>
+
+            <!-- Descrição do Problema -->
+            <p-floatlabel variant="on" class="full-width">
+              <input 
+                pInputText 
+                id="problemDescription-{{i}}" 
+                formControlName="problemDescription" 
+                autocomplete="off" 
+              />
+              <label for="problemDescription-{{i}}">Descrição do Problema</label>
+            </p-floatlabel>
+
+            <!-- Etapa -->
+            <p-floatlabel variant="on" class="half-width" style="margin-top: 1rem;">
+              <input 
+                pInputText 
+                id="stage-{{i}}" 
+                formControlName="stage" 
+                autocomplete="off" 
+              />
+              <label for="stage-{{i}}">Etapa</label>
+            </p-floatlabel>
+
+            <!-- Tem Causa -->
+            <div class="flex align-center gap-2" style="margin: 1rem 0;">
+              <p-checkbox 
+                formControlName="hasCause" 
+                [binary]="true" 
+                inputId="hasCause-{{i}}" 
+              />
+              <label for="hasCause-{{i}}">Tem causa?</label>
+            </div>
+
+            <!-- Tabela de Problemas com PrimeNG -->
+            <div formArrayName="problems">
+              <p-table 
+                [value]="getProblems(i).controls" 
+                dataKey="id"
+                editMode="row" 
+                styleClass="sigae-lite-table"
+                [tableStyle]="{'min-width': '75rem'}"
+              >
+                <ng-template #caption>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xl font-bold">Problemas</span>
+                    <button 
+                      type="button" 
+                      class="p-button p-button-text" 
+                      (click)="addProblem(i)"
+                      pButton
+                    >
+                      <i class="pi pi-plus"></i> Adicionar Problema
+                    </button>
+                  </div>
+                </ng-template>
+                
+                <ng-template #header>
+                  <tr>
+                    <th style="width:25%">Descrição do Problema</th>
+                    <th style="width:15%">Etapa</th>
+                    <th style="width:10%">Pensar Causa</th>
+                    <th style="width:20%">Resultado</th>
+                    <th style="width:10%">Prioridade</th>
+                    <th style="width:15%">Categoria</th>
+                    <th style="width:5%"></th>
+                  </tr>
+                </ng-template>
+                
+                <ng-template #body let-problem let-problemIndex="rowIndex" let-editing="editing">
+                  <tr [pEditableRow]="problem" [formGroupName]="problemIndex">
+                    <!-- Descrição do Problema -->
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <input
+                            pInputText 
+                            type="text"
+                            formControlName="problemDescription" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ problem.value.problemDescription }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    
+                    <!-- Etapa -->
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <input
+                            pInputText 
+                            type="text"
+                            formControlName="stage" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ problem.value.stage }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    
+                    <!-- Pensar Causa -->
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-checkbox 
+                            formControlName="hasCause" 
+                            [binary]="true" 
+                          ></p-checkbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ problem.value.hasCause ? 'Sim' : 'Não' }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    
+                    <!-- Resultado -->
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <input
+                            pInputText 
+                            type="text"
+                            formControlName="result" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ problem.value.result }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    
+                    <!-- Prioridade -->
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-checkbox 
+                            formControlName="priority" 
+                            [binary]="true" 
+                          ></p-checkbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ problem.value.priority ? 'Sim' : 'Não' }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    
+                    <!-- Categoria -->
+                    <td>
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <input
+                            pInputText 
+                            type="text"
+                            formControlName="category" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          {{ problem.value.category }}
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    
+                    <!-- Ações -->
+                    <td>
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          *ngIf="!editing"
+                          pButton
+                          pRipple
+                          type="button"
+                          pInitEditableRow
+                          icon="pi pi-pencil"
+                          (click)="onRowEditInit(problem)"
+                          text
+                          rounded
+                          severity="secondary"
+                        ></button>
+                        
+                        <button
+                          *ngIf="!editing"
+                          pButton
+                          pRipple
+                          type="button"
+                          icon="pi pi-trash"
+                          (click)="confirmDeleteProblem(i, problemIndex)"
+                          text
+                          rounded
+                          severity="secondary"
+                        ></button>
+                        
+                        <button
+                          *ngIf="editing"
+                          pButton
+                          pRipple
+                          type="button"
+                          pSaveEditableRow
+                          icon="pi pi-check"
+                          (click)="onRowEditSave(problem)"
+                          text
+                          rounded
+                          severity="secondary"
+                        ></button>
+                        
+                        <button
+                          *ngIf="editing"
+                          pButton
+                          pRipple
+                          type="button"
+                          pCancelEditableRow
+                          icon="pi pi-times"
+                          (click)="onRowEditCancel(problem, problemIndex)"
+                          text
+                          rounded
+                          severity="secondary"
+                        ></button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </p-fieldset>
+        </div>
+      </div>
+
+      <div class="flex justify-between mt-4">
+        <button 
+          type="button" 
+          class="p-button p-button-secondary" 
+          (click)="onPrevious.emit()"
+          pButton
+        >
+          <i class="pi pi-arrow-left"></i> Anterior
+        </button>
+        
+        <button 
+          type="button" 
+          class="p-button" 
+          (click)="onNext.emit()"
+          pButton
+        >
+          Próximo <i class="pi pi-arrow-right"></i>
+        </button>
+      </div>
+    </form>
+
+    <p-toast />
+    <p-confirmDialog [style]="{ width: '450px' }" />

@@ -88,12 +88,13 @@
 				"test": {
 					"builder": "@angular-builders/jest:run",
 					"options": {
-						"config": "jest.config.js"
+						"config": "jest.config.js",
+						"codeCoverage": true
 					},
 					"configurations": {
 						"ci": {
-						"ci": true,
-						"codeCoverage": true
+							"ci": true,
+							"codeCoverage": true
 						}
 					}
 				}

@@ -1,12 +1,10 @@
 import { Component, Output, EventEmitter, OnInit, OnDestroy, importProvidersFrom } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepperModule } from 'primeng/stepper';
 import { FloatLabelModule } from "primeng/floatlabel"
 import { SchoolsService } from '../shared/services/schools.service';
-import { Select } from '../shared/interface/select';
 import { SelectModule } from 'primeng/select';
 import { InputMask } from 'primeng/inputmask';
 import { CommonModule } from '@angular/common';

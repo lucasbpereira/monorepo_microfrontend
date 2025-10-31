@@ -10,6 +10,9 @@
     "test:watch": "ng test --watch",
     "test:ci": "ng test --configuration=ci",
     "test:coverage": "ng test --code-coverage",
+    "jest": "jest",
+    "jest:watch": "jest --watch",
+    "jest:coverage": "jest --coverage",
     "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
   },
   "private": true,

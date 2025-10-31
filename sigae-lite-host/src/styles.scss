@@ -83,8 +83,13 @@ button {
          width: 100% !important;
       }
    }   
+
+   &.align-center {
+      align-items: center;
+   }
 }
 
 .add-btn {
    margin-bottom: 1rem;
 }
+

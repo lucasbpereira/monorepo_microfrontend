@@ -1,1 +1,111 @@
-<p>action-plan works!</p>
+<section class="container">
+    <p-stepper [value]="currentStep" [linear]="true">
+        <p-step-list>
+            <p-step [value]="1">Escolha de Objetivos</p-step>
+            <p-step [value]="2">Classificação de Objetivos</p-step>
+            <p-step [value]="3">Ações</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <form [formGroup]="chooseObjectivesForm">
+                        <h2>Plano</h2>
+                        <p-floatlabel variant="on" class="half-width">
+                            <input pInputText id="on_label" formControlName="title" autocomplete="off" />
+                            <label for="on_label">Descrição do Plano</label>
+                        </p-floatlabel>
+                        <p-fieldset [style]="{'width': 'auto'}">
+                            <ng-template #header>
+                                <div class="flex items-center gap-2 px-2">
+                                    <span class="font-bold">Objetivos</span>
+                                    <button 
+                                        type="button" 
+                                        class="p-button p-button-text" 
+                                        (click)="addObjective()"
+                                        pButton
+                                    >
+                                        <i class="pi pi-plus"></i>
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <div formArrayName="objectives">
+                                <div *ngFor="let objective of objectives.controls; let i = index" [formGroupName]="i">
+                                    <div class="row align-center">
+                                        <p-checkbox 
+                                            formControlName="objectiveFlag" 
+                                            [binary]="true" 
+                                            inputId="objective-{{i}}" 
+                                        />
+                                        <p-floatlabel variant="on" class="half-width">
+                                            <input pInputText id="on_label" formControlName="objectiveDescription" autocomplete="off" />
+                                            <label for="on_label">Objetivo {{ i + 1 }}</label>
+                                        </p-floatlabel>
+                                        <button 
+                                            type="button" 
+                                            class="p-button p-button-text p-button-danger" 
+                                            (click)="removeObjective(i)"
+                                            [disabled]="objectives.length === 1"
+                                            [ngClass]="objectives.length === 1 ? 'hidden' : ''"
+                                            pButton
+                                        >
+                                            <i class="pi pi-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </form>
+                    <!-- MODIFIQUE AQUI: Use (onClick)="onNextToStep2()" em vez de activateCallback -->
+                    <p-button 
+                        label="Next" 
+                        icon="pi pi-arrow-right" 
+                        iconPos="right" 
+                        [disabled]="!chooseObjectivesForm.valid || selectedObjectives.length === 0" 
+                        (onClick)="onNextToStep2()" 
+                    />
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div *ngIf="classificationObjectives.length > 0; else noObjectives">
+                        <sigae-lite-objectives-classification
+                            [classificationForm]="objectivesClassificationForm"
+                            [objectivesDescriptions]="objectivesDescriptions"
+                            (onPrevious)="onStepChange(1)"
+                            (onNext)="onStepChange(3)"
+                        ></sigae-lite-objectives-classification>
+                    </div>
+                    <ng-template #noObjectives>
+                        <div class="p-4 text-center">
+                            <p>Nenhum objetivo selecionado. Volte para a etapa anterior e selecione pelo menos um objetivo.</p>
+                            <button 
+                                type="button" 
+                                class="p-button p-button-secondary mt-2" 
+                                (click)="onStepChange(1)"
+                                pButton
+                            >
+                                <i class="pi pi-arrow-left"></i> Voltar
+                            </button>
+                        </div>
+                    </ng-template>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <h2>Ações</h2>
+                    <p>Conteúdo da etapa de ações será implementado aqui.</p>
+                    <p-button 
+                        label="Previous" 
+                        icon="pi pi-arrow-left" 
+                        iconPos="left" 
+                        (onClick)="onStepChange(2)" 
+                    />
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</section>
+
+<p-toast />

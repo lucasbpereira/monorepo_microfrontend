@@ -1,0 +1,21 @@
+form{
+    display: flex;
+    gap: .5rem;
+    flex-direction: column;
+    align-items: center;
+
+    input, p-password {
+        width: 100%; 
+        box-sizing: border-box; 
+    }
+
+
+    :host ::ng-deep p-floatlabel {
+        width: 100%;
+        display: block;
+    }
+
+    .captcha {
+        width: 100%;
+    }
+}

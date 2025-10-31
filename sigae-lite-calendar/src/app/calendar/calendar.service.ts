@@ -4,44 +4,44 @@ import { CalendarEvent } from '../shared/interfaces/calendar-event';
 @Injectable()
 export class CalendarService {
 
-    calendarData: CalendarEvent[] = [
+  calendarData: CalendarEvent[] = [
+        {
+            "id": "16443adf-4c17-4523-8a65-fcd8f4483807",
+            "task": "Dayle matinal",
+            "event_date": "2025-10-30",
+            "start_hour": "09:00",
+            "finish_hour": "09:30",
+            "tag": "done"
+        },
           {
-              "id": "16443adf-4c17-4523-8a65-fcd8f4483807",
-              "task": "Dayle matinal",
-              "event_date": "2025-10-30",
-              "start_hour": "09:00",
-              "finish_hour": "09:30",
-              "tag": "done"
-          },
-           {
-              "id": "16443adf-4c17-4523-8a65-fcd8f4483808",
-              "task": "Review de orçamento",
-              "event_date": "2025-10-30",
-              "start_hour": "09:40",
-              "finish_hour": "10:30",
-              "tag": "in_progress"
-          },
-          {
-              "id": "16443adf-4c17-4523-8a65-fcd8f4483809",
-              "task": "Dayle matinal",
-              "event_date": "2025-10-31",
-              "start_hour": "09:00",
-              "finish_hour": "09:30",
-              "tag": "to_do"
-          },
-          {
-              "id": "16443adf-4c17-4523-8a65-fcd8f4483810",
-              "task": "Dayle matinal",
-              "event_date": "2025-11-01",
-              "start_hour": "09:00",
-              "finish_hour": "09:30",
-              "tag": "to_do"
-          }
-    ];
+            "id": "16443adf-4c17-4523-8a65-fcd8f4483808",
+            "task": "Review de orçamento",
+            "event_date": "2025-10-31",
+            "start_hour": "09:40",
+            "finish_hour": "10:30",
+            "tag": "in_progress"
+        },
+        {
+            "id": "16443adf-4c17-4523-8a65-fcd8f4483809",
+            "task": "Dayle matinal",
+            "event_date": "2025-10-31",
+            "start_hour": "10:00",
+            "finish_hour": "10:30",
+            "tag": "to_do"
+        },
+        {
+            "id": "16443adf-4c17-4523-8a65-fcd8f4483810",
+            "task": "Dayle matinal",
+            "event_date": "2025-11-01",
+            "start_hour": "09:00",
+            "finish_hour": "09:30",
+            "tag": "to_do"
+        }
+  ];
 
-    getCalendarData(): CalendarEvent[] {
-        return this.calendarData
-    }
+  getCalendarData(): CalendarEvent[] {
+      return this.calendarData
+  }
 
   getCalendarToday(): Promise<CalendarEvent[]> {
     const todayStr = this.formatDateLocal(new Date());

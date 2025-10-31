@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, tap, map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
-// Interface simples para o usuário
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { User } from '../shared/interfaces/User';
 
 @Injectable({
   providedIn: 'root'

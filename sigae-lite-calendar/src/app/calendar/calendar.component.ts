@@ -18,10 +18,11 @@ export class CalendarComponent implements OnInit {
 
   date: Date[] | undefined;
 
-
+  calendarEvent!: CalendarEvent[];
   todayTaskList!: CalendarEvent[];
   tomorrowTaskList!: CalendarEvent[];
-
+  currentDate = new Date(2025, 9, 1);
+  
   constructor(private service: CalendarService) {
     
   }
@@ -31,6 +32,7 @@ export class CalendarComponent implements OnInit {
   }
 
   async getTodayAndTomorrowEvents() {
+    this.calendarEvent = await this.service.getCalendarData();
     this.todayTaskList = await this.service.getCalendarToday();
     this.tomorrowTaskList = await this.service.getCalendarTomorrow();
   }

@@ -1,1 +1,36 @@
- 
+<div class="calendar">
+  <div class="calendar-header">
+    <button class="nav-button" (click)="changeMonth(-1)"><span class="pi pi-angle-left"></span></button>
+    <h1>{{ getMonthYear() }}</h1>
+    <button class="nav-button" (click)="changeMonth(1)"><span class="pi pi-angle-right"></span></button>
+  </div>
+
+  <div class="week-days">
+    <div class="week-day" *ngFor="let day of weekDays">
+      {{ day }}
+    </div>
+  </div>
+
+  <div class="calendar-weeks">
+    <div class="week" *ngFor="let week of weeks">
+      <div class="day" *ngFor="let day of week" 
+           [class.current-month]="day.date.getMonth() === currentDate.getMonth()" (click)="openDialog(day)">
+        
+        <div class="day-number">{{ day.day }}</div>
+        
+        <div class="events">
+          <div *ngFor="let event of day.events" class="event-item">
+            <div class="event-time">
+              {{ event.start_hour }} - {{ event.finish_hour }}
+            </div>
+            <div class="event-task">{{ event.task }}</div>
+            <p-tag 
+              [severity]="event.tag === 'to_do' ? 'danger' : event.tag === 'done' ? 'success' : 'info'" 
+              [value]="event.tag === 'to_do' ? 'A Fazer' : event.tag === 'done' ? 'Concluído' : 'Em Progresso'"  />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

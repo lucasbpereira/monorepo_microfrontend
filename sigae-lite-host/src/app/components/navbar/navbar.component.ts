@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -11,50 +11,34 @@ import { finalize, Observable, Subject, takeUntil } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
 import { AsyncPipe } from '@angular/common';
+import { LoginComponent } from '../login/login.component';
+import { User } from '../../shared/interfaces/User';
 
 @Component({
   selector: 'sigae-lite-navbar',
   standalone: true,
   imports: [
     Dialog,
-    FloatLabelModule,
-    InputTextModule,
-    FormsModule,
-    ButtonModule,
-    PasswordModule,
-    ReactiveFormsModule,
     Menubar,
     RouterLink,
-    AsyncPipe
+    AsyncPipe,
+    ButtonModule,
+    LoginComponent
 ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
+
   visible: boolean = false;
-  loginForm: FormGroup;
-  isLoading = false;
-  errorMessage: string | null = null;
   items: MenuItem[] | undefined;
-  
   isAuthenticated$: Observable<boolean>;
 
-  private destroy$ = new Subject<void>();
-
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
-
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required]]
-    });
   }
-
-     
 
   ngOnInit() {
     this.items = [
@@ -76,7 +60,6 @@ export class NavbarComponent implements OnInit {
     ];
   }
 
-  
   showLoginDialog() {
       this.visible = true;
   }
@@ -85,29 +68,8 @@ export class NavbarComponent implements OnInit {
     this.authService.logout()
   }
 
-  onSubmit(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
-    this.isLoading = true;
-    this.errorMessage = null;
-    const { email, senha } = this.loginForm.value;
-
-    this.authService.login(email, senha).pipe(
-      takeUntil(this.destroy$),
-      finalize(() => this.isLoading = false)
-    ).subscribe({
-      next: (user) => {
-        this.visible = false
-      },
-      error: (err) => {
-        this.errorMessage = err.message || 'Ocorreu um erro no login.';
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  hideLoginDialog(event: User) {
+    console.log(event)
+    this.visible = false;
   }
 }
