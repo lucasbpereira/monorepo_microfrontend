@@ -1,21 +1,61 @@
-<nav>
-  <h1>Sigae Lite</h1>
-  <ul>
-    <li><button (click)="showDialog()">Login</button></li>
-  </ul>  
-</nav>
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-8">Update your information.</span>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="username" class="font-semibold w-24">Username</label>
-        <input pInputText id="username" class="flex-auto" autocomplete="off" />
-    </div>
-    <div class="flex items-center gap-4 mb-8">
-        <label for="email" class="font-semibold w-24">Email</label>
-        <input pInputText id="email" class="flex-auto" autocomplete="off" />
-    </div>
-    <div class="flex justify-end gap-2">
-        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-        <p-button label="Save" (click)="visible = false" />
-    </div>
+<p-menubar [model]="items">
+    <ng-template #start>
+        <h1><a routerLink="/">Sigae Lite</a> </h1>
+    </ng-template>
+    <ng-template #item let-item let-root="root">
+        @if (isAuthenticated$ | async) {
+            <p-button 
+                [label]="item.label" 
+                [routerLink]="item.url"
+                class="transparent-btn"
+                [icon]="item.icon">
+            </p-button>
+        }
+    </ng-template>
+    <ng-template #end>
+        @if (isAuthenticated$ | async) {
+          
+          
+          <p-button 
+              label="Quit" 
+              (onClick)="logout()" 
+              class="transparent-btn"
+              icon="pi pi-power-off">
+          </p-button>
+
+        } @else {
+
+          <p-button 
+              label="Login" 
+              (onClick)="showLoginDialog()"
+               class="transparent-btn">
+          </p-button>
+
+        }
+    </ng-template>
+</p-menubar>
+
+<p-dialog #headless [modal]="true" [(visible)]="visible" [style]="{ width: '18.5rem', padding: '2.5rem', gap: '3.6875rem' }">
+    <ng-template #headless>
+        <div class="header-container"><h2>Login</h2></div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <p-floatlabel variant="on">
+                <input pInputText id="on_label" formControlName="email" autocomplete="off" />
+                <label for="on_label">E-Mail</label>
+            </p-floatlabel>
+            <p-floatlabel variant="on">
+                <p-password
+                    formControlName="senha"
+                    inputId="senha"
+                    [toggleMask]="true"
+                    [feedback]="false">
+                </p-password>
+                <label for="on_label">Senha</label>
+            </p-floatlabel>
+            <div class="flex justify-end gap-2">
+                <p-button label="Entrar" type="submit" />
+            </div>
+        </form>
+    </ng-template>
+
 </p-dialog>

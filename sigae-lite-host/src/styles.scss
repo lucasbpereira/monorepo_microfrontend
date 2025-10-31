@@ -1,4 +1,8 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "primeicons/primeicons.css";
+
+
 /* Reset CSS por Eric Meyer */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -24,6 +28,9 @@ summary {
 }
 body {
    line-height: 1;
+   font-family: "Inter", sans-serif;
+   color: #000;
+   background-color: #fff;
 }
 ol, ul {
    list-style: none;
@@ -31,11 +38,53 @@ ol, ul {
 blockquote {
    quotes: none;
 }
+:host  {
+
+   .sigae-lite-table {
+      .p-datatable-header {
+          height: 45px!important;
+          background-color: #F9FAFB!important; 
+          border-bottom: 1px solid #E5E7EB!important;
+      }
+   }
+
+}
+
 table {
-   border-collapse: collapse;
-   border-spacing: 0;
+      border-collapse: collapse;
+      border-spacing: 0;
 }
 
 h1, h2, h3, h4, h5, h6, p {
   font-family: "Inter", sans-serif;
+  color: #000;
+}
+
+a {
+   text-decoration: none;
+   color: #000;
+}
+
+button {
+   font-weight: 700;
+   height: 40px;
+}
+
+.row {
+   display: flex;
+   padding: .5rem 0;
+   gap: 1rem;
+
+   .half-width {
+      flex: 1;
+      min-width: 0;
+
+      .p-inputtext {
+         width: 100% !important;
+      }
+   }   
+}
+
+.add-btn {
+   margin-bottom: 1rem;
 }

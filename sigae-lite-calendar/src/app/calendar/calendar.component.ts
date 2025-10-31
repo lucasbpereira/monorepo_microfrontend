@@ -1,12 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MegaCalendarComponent } from '../shared/components/mega-calendar/mega-calendar.component';
+import { FormsModule } from '@angular/forms';
+import { DatePicker } from 'primeng/datepicker';
+import { CalendarEvent } from '../shared/interfaces/calendar-event';
+import { CalendarService } from './calendar.service';
+import { Tag } from 'primeng/tag';
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [],
+  imports: [MegaCalendarComponent, FormsModule, DatePicker, Tag],
   templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.scss'
+  styleUrl: './calendar.component.scss',
+  providers: [CalendarService]
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit {
 
+  date: Date[] | undefined;
+
+
+  todayTaskList!: CalendarEvent[];
+  tomorrowTaskList!: CalendarEvent[];
+
+  constructor(private service: CalendarService) {
+    
+  }
+
+  ngOnInit(): void {
+    this.getTodayAndTomorrowEvents()
+  }
+
+  async getTodayAndTomorrowEvents() {
+    this.todayTaskList = await this.service.getCalendarToday();
+    this.tomorrowTaskList = await this.service.getCalendarTomorrow();
+  }
 }

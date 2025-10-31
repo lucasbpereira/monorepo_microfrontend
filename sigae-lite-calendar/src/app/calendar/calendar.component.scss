@@ -1,0 +1,36 @@
+main {
+    width: 100dvw;
+    height: calc(100dvh - 49px);
+
+    aside {
+        width: 20dvw;
+        min-height: calc(100dvh - 49px);
+        border-right: 1px solid #EFF3F8;
+
+        ::ng-deep .date-select {
+            width: 100% !important;
+            
+            .p-datepicker {
+                width: 100% !important;
+            }
+        }
+
+        section {
+            padding: .5rem  1rem;
+
+            h2 {
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: .25rem;
+            }
+
+            ul {
+                li {
+                    padding: .25rem 0;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+}

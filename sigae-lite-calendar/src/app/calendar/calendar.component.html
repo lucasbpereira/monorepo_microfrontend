@@ -1,1 +1,32 @@
-<p>calendar works!</p>
+<main>
+    <aside>
+        <p-datepicker [(ngModel)]="date" [inline]="true" styleClass="date-select" />
+
+        <section class="today">
+            <h2>Hoje</h2>
+            @for(calendar of todayTaskList; track calendar.id) {
+                <ul>
+                    <li [class]="calendar.tag">{{calendar.task}} 
+                        <p-tag 
+                            [severity]="calendar.tag === 'to_do' ? 'danger' : calendar.tag === 'done' ? 'success' : 'info'" 
+                            [value]="calendar.tag === 'to_do' ? 'A Fazer' : calendar.tag === 'done' ? 'Concluído' : 'Em Progresso'" />
+                    </li>
+                </ul>
+            }
+        </section>
+        <section class="tomorrow">
+            <h2>Amanhã</h2>
+            @for(calendar of tomorrowTaskList; track calendar.id) {
+                <ul>
+                    <li [class]="calendar.tag">
+                        {{calendar.task}}
+                        <p-tag 
+                            [severity]="calendar.tag === 'to_do' ? 'danger' : calendar.tag === 'done' ? 'success' : 'info'" 
+                            [value]="calendar.tag === 'to_do' ? 'A Fazer' : calendar.tag === 'done' ? 'Concluído' : 'Em Progresso'" />
+                    </li>
+                </ul>
+            }
+        </section>
+    </aside>
+</main>
+<!-- <sigae-lite-mega-calendar></sigae-lite-mega-calendar> -->

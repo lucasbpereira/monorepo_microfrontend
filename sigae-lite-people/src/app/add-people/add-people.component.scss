@@ -1,0 +1,25 @@
+.select-input {
+    max-width: 310px;
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    
+    .p-inputtext {
+        width: 100% !important;
+    }
+}
+
+.email-input {
+    max-width: 650px;
+    width: 100%;
+    min-width: 0;
+    
+    .p-inputtext {
+        width: 100% !important;
+    }
+}
+
+
+.hidden {
+    display: none;
+}

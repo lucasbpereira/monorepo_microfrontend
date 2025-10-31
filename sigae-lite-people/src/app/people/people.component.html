@@ -1,1 +1,13 @@
-<p>people works!</p>
+<section class="container">
+    <div *ngIf="!showAddForm">
+        <p-button styleClass="add-btn" (click)="navigateToAdd()">
+            Adicionar
+        </p-button>
+
+        <sigae-lite-table></sigae-lite-table>
+    </div>
+    
+    <div *ngIf="showAddForm">
+        <sigae-lite-add-people (back)="onBack($event)"></sigae-lite-add-people>
+    </div>
+</section>

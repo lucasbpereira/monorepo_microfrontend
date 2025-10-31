@@ -1,0 +1,143 @@
+<p-table [value]="people" dataKey="id" editMode="row"  styleClass="sigae-lite-table">
+    <ng-template #caption>
+        <div class="flex items-center justify-between">
+            <span class="text-xl font-bold">Pessoas</span>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th style="width:25%">Nome</th>
+            <th style="width:10%">CPF</th>
+            <th style="width:20%">E-mail</th>
+            <th style="width:15%">School</th>
+            <th style="width:23%">Address</th>
+            <th style="width:7%"></th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-people let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="people">
+            <td>
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText type="text"
+                            [(ngModel)]="people.name" />
+                    </ng-template>
+                    <ng-template #output>
+                        {{people.name}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText type="text"
+                            [(ngModel)]="people.cpf"
+                            required />
+                    </ng-template>
+                    <ng-template #output>
+                        {{people.cpf}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText type="text"
+                            [(ngModel)]="people.email" />
+                    </ng-template>
+                    <ng-template #output>
+                        {{people.email}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText type="text"
+                            [(ngModel)]="people.school" />
+                    </ng-template>
+                    <ng-template #output>
+                        {{people.school}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+                <td>
+                <p-cellEditor>
+                    <ng-template #input>
+                        <input
+                            pInputText type="text"
+                            [(ngModel)]="people.address" />
+                    </ng-template>
+                    <ng-template #output>
+                        {{people.address}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+        <div class="flex items-center justify-center gap-2">
+            <button
+                *ngIf="!editing"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                icon="pi pi-pencil"
+                (click)="onRowEditInit(people)"
+                text
+                rounded
+                severity="secondary"
+            ></button>
+                <button
+                *ngIf="!editing"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                icon="pi pi-trash"
+                (click)="deletePeople(people)"
+                text
+                rounded
+                severity="secondary"
+            ></button>
+            <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(people)"
+                text
+                rounded
+                severity="secondary"
+            ></button>
+            <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(people, ri)"
+                text
+                rounded
+                severity="secondary"
+            ></button>
+        </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #footer>
+        <tr>
+            <td colspan="6">
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-toast />
+<p-confirmDialog [style]="{ width: '450px' }" />

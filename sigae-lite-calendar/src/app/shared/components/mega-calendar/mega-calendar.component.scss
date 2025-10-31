@@ -1,0 +1,123 @@
+.calendar-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 20px;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+}
+
+.week-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+
+  .day {
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #666;
+
+    &.current-month {
+      color: #333;
+      font-weight: 600;
+    }
+  }
+}
+
+.separator {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 20px 0;
+}
+
+.event-section {
+  margin-bottom: 20px;
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+}
+
+.today-section {
+  h2 {
+    border-bottom-color: #4CAF50;
+  }
+}
+
+.tomorrow-section {
+  h2 {
+    border-bottom-color: #2196F3;
+  }
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #555;
+  border-left: 3px solid transparent;
+
+  &:hover {
+    background: #e9ecef;
+    border-left-color: #007bff;
+  }
+}
+
+.calendar-footer {
+  margin-top: 20px;
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin: 0 0 15px 0;
+  }
+}
+
+// Responsividade
+@media (max-width: 480px) {
+  .calendar-container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .week-days .day {
+    font-size: 0.8rem;
+    padding: 6px 2px;
+  }
+
+  .task-item {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+}

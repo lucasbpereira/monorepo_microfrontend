@@ -1,0 +1,160 @@
+<section class="container">
+    <p-stepper [value]="1" [linear]="true">
+        <p-step-list>
+            <p-step [value]="1">Dados cadastrais</p-step>
+            <p-step [value]="2">Dados de contato</p-step>
+            <p-step [value]="3">Dados de endereço</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <form [formGroup]="registerDataForm">
+                            <div class="row">
+                                <p-floatlabel variant="on" class="half-width">
+                                    <input pInputText id="on_label" formControlName="name" autocomplete="off" />
+                                    <label for="on_label">Nome</label>
+                                </p-floatlabel>
+
+                                <p-floatlabel variant="on" class="half-width">
+                                    <input pInputText id="on_label" formControlName="socialName" autocomplete="off" />
+                                    <label for="on_label">Nome Social</label>
+                                </p-floatlabel>
+                            </div>
+                            <div class="row">
+                                <p-floatlabel variant="on">
+                                    <p-inputmask mask="999.999.999-99" formControlName="cpf" [style]="{'width': '100%'}" />
+                                    <label for="on_label">CPF</label>
+                                </p-floatlabel>
+
+                                <p-floatlabel variant="on">
+                                    <p-inputmask mask="99.999.999/9999-99" formControlName="cnpj" [style]="{'width': '100%'}" />
+                                    <label for="on_label">CNPJ</label>
+                                </p-floatlabel>
+
+                                <p-select [options]="schools" formControlName="school" placeholder="Escola" class="select-input">
+                                    <ng-template #dropdownicon>
+                                        <i class="pi pi-arrow-circle-down"></i>
+                                    </ng-template>
+                                </p-select>
+                                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" [disabled]="!registerDataForm.valid" (onClick)="activateCallback(2)" />
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                        <form [formGroup]="contactDataForm">
+                            <div class="row">
+                                <p-floatlabel variant="on">
+                                    <input pInputText id="on_label" formControlName="email" autocomplete="off" />
+                                    <label for="on_label">Email</label>
+                                </p-floatlabel>
+                            </div>
+                            <div formArrayName="telephones">
+                                <p-fieldset>
+                                    <ng-template #header>
+                                        <div class="flex items-center gap-2 px-2">
+                                            <span class="font-bold">Telefones</span>
+                                            <button 
+                                                type="button" 
+                                                class="p-button p-button-text" 
+                                                (click)="addTelephone()"
+                                                pButton
+                                            >
+                                                <i class="pi pi-plus"></i>
+                                            </button>
+                                        </div>
+                                    </ng-template>
+                                    <div *ngFor="let telephone of telephones.controls; let i = index" [formGroupName]="i">
+                                        <div class="row">
+                                            <p-floatlabel variant="on">
+                                                <p-inputMask 
+                                                    formControlName="number"
+                                                    mask="(99) 99999-9999" 
+                                                    [style]="{'width': '100%'}"
+                                                />
+                                                <label for="telephone-{{i}}">Telefone {{ i + 1 }}</label>
+                                            </p-floatlabel>
+                                            <button 
+                                                type="button" 
+                                                class="p-button p-button-text p-button-danger" 
+                                                (click)="removeTelephone(i)"
+                                                [disabled]="telephones.length === 1"
+                                                [ngClass]="telephones.length === 1 ? 'hidden' : ''"
+                                                pButton
+                                            >
+                                                <i class="pi pi-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </p-fieldset>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="flex pt-6 justify-between">
+                        <p-button label="Anterior" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                        <p-button label="Próximo" icon="pi pi-arrow-right" iconPos="right" [disabled]="!contactDataForm.valid" (onClick)="activateCallback(3)" />
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                        <form [formGroup]="addressDataForm" (ngSubmit)="onSubmitPeopleForm()">
+                            <div class="row">
+                                <p-select [options]="countries" formControlName="country" optionLabel="name" optionValue="code" [filter]="true" filterBy="name" [showClear]="true" placeholder="País" class="select-input">
+                                    <ng-template #dropdownicon>
+                                        <i class="pi pi-arrow-circle-down"></i>
+                                    </ng-template>
+                                    <ng-template #selectedItem let-selectedOption>
+                                        <div class="row">
+                                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+                                            <div>{{ selectedOption.name }}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-country #item>
+                                        <div class="row">
+                                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                                            <div>{{ country.name }}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-select>
+                                <p-floatlabel variant="on" >
+                                    <p-inputmask mask="99999-999" formControlName="cep" (onInput)="getAddress($event)" [style]="{'width': '100%'}" />
+                                    <label for="on_label">CEP</label>
+                                </p-floatlabel>
+                            </div>
+                            <div class="row">
+                                <p-floatlabel variant="on" class="half-width">
+                                    <input pInputText id="on_label" formControlName="address" autocomplete="off" />
+                                    <label for="on_label">Endereço completo</label>
+                                </p-floatlabel>
+
+                                <p-floatlabel variant="on" class="half-width">
+                                    <input pInputText id="on_label" formControlName="city" autocomplete="off" />
+                                    <label for="on_label">Cidade</label>
+                                </p-floatlabel>
+                            </div>
+                            <div class="row">
+                                <p-floatlabel variant="on">
+                                    <input pInputText id="on_label" formControlName="state" autocomplete="off"  />
+                                    <label for="on_label">Estado</label>
+                                </p-floatlabel>
+
+                                
+                                <p-button label="Anterior" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(2)" />
+
+                                <p-button type="submit" label="Concluir" icon="pi pi-arrow-right" iconPos="right" [disabled]="!addressDataForm.valid"  />
+                            </div>
+                        </form>                    
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</section>
+
+<p-toast />
